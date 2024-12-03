@@ -105,7 +105,7 @@ public class MainHextreeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //TO DO - Flag 12
+        //TO DO - Flag 12 TEST
         //DeepLink for FLAG13 hex://flag?action=give-me
         //Intent: URI for FLAG15 intent:#Intent;action=io.hextree.action.GIVE_FLAG;category=android.intent.category.BROWSABLE;S.action=flag;B.flag=true;package=io.hextree.attacksurface;end
 
