@@ -105,14 +105,14 @@ public class MainHextreeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //TO DO - Flag 12 TEST
+        //TO DO - Flag 12
         //DeepLink for FLAG13 hex://flag?action=give-me
         //Intent: URI for FLAG15 intent:#Intent;action=io.hextree.action.GIVE_FLAG;category=android.intent.category.BROWSABLE;S.action=flag;B.flag=true;package=io.hextree.attacksurface;end
 
         //BROADCAST RECEIVER
         //Listen for BroadcastIntent and return (Flag 18)
         BroadcastReceiver receiver = new MaliciousReceiver();
-        registerReceiver(receiver, new IntentFilter("io.hextree.broadcast.FREE_FLAG"));
+        registerReceiver(receiver, new IntentFilter("io.hextree.broadcast.FREE_FLAG"), RECEIVER_EXPORTED);
 
         //ACTIVITY INTENT LISTENERS
         Intent intent = getIntent();
