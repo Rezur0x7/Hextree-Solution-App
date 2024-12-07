@@ -113,7 +113,6 @@ public class MainHextreeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //TO DO - Flag 12
         //DeepLink for FLAG13 hex://flag?action=give-me
         //Intent: URI for FLAG15 intent:#Intent;action=io.hextree.action.GIVE_FLAG;category=android.intent.category.BROWSABLE;S.action=flag;B.flag=true;package=io.hextree.attacksurface;end
 
@@ -128,7 +127,6 @@ public class MainHextreeActivity extends AppCompatActivity {
         if (intent.getAction() == "io.hextree.attacksurface.ATTACK_ME") {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("token", 1094795585);
-            returnIntent.putExtra("LOGIN", true);
             setResult(-1, returnIntent);
         }
         //Listen for [PendingMutableIntent (Flag 23)]
@@ -254,13 +252,20 @@ public class MainHextreeActivity extends AppCompatActivity {
             public void Flag8launchActivity() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag8Activity");
-                startActivity(intent);
+                startActivityForResult(intent, 42);
             }
 
             public void Flag9launchActivityWithReturnExtra() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag9Activity");
                 startActivityForResult(intent, 1337);
+            }
+
+            public void Flag12trickyReturnedIntentCondition() {
+                Intent startIntent = new Intent();
+                startIntent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.activities.Flag12Activity");
+                startIntent.putExtra("LOGIN", true);
+                startActivityForResult(startIntent, 42);
             }
 
             public void Flag16sendBroadcast() {
@@ -438,7 +443,7 @@ public class MainHextreeActivity extends AppCompatActivity {
             //trigger flag functions on clicking
             @Override
             public void onClick(View view) {
-                Flag36FileWrite();
+                Flag12trickyReturnedIntentCondition();
             }
 
         });
