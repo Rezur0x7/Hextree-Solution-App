@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,27 +35,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import io.hextree.attacksurface.services.IFlag28Interface;
+import io.hextree.attacksurface.services.IFlag29Interface;
 
 
 public class MainHextreeActivity extends AppCompatActivity {
-
-    //Bind to remote service serviceConnection (Flag 26)
-    private final ServiceConnection serviceConnectionflag26 = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Messenger serviceMessenger = new Messenger(service);
-            Message msg = Message.obtain(null, 42);
-            try {
-                serviceMessenger.send(msg);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
-    };
 
     //Bind to remote service serviceConnection (Flag 27)
     private final ServiceConnection serviceConnectionflag27a = new ServiceConnection() {
@@ -155,7 +143,6 @@ public class MainHextreeActivity extends AppCompatActivity {
         else {
             Utils.showDialog(this, intent);
         }
-
 
 
         //home_button listener
@@ -347,7 +334,23 @@ public class MainHextreeActivity extends AppCompatActivity {
             public void Flag26BindServiceWithMessage() {
                 Intent intent = new Intent();
                 intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag26Service");
-                bindService(intent, serviceConnectionflag26, Context.BIND_AUTO_CREATE);
+                ServiceConnection serviceConnection = new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName name, IBinder service) {
+                        Messenger serviceMessenger = new Messenger(service);
+                        Message msg = Message.obtain(null, 42);
+                        try {
+                            serviceMessenger.send(msg);
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    @Override
+                    public void onServiceDisconnected(ComponentName componentName) {
+
+                    }
+                };
+                bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
             }
 
             public void Flag27BindServiceWithMessageReplies() {
@@ -359,6 +362,120 @@ public class MainHextreeActivity extends AppCompatActivity {
                     intent2.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag27Service");
                     bindService(intent2, serviceConnectionflag27b, Context.BIND_AUTO_CREATE);
                 }, 1000);
+            }
+
+            public void Flag28BindServiceWithAIDL_AidlFile() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag28Service");
+                ServiceConnection serviceConnection = new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                        IFlag28Interface remoteService = IFlag28Interface.Stub.asInterface(iBinder);
+                        try {
+                            remoteService.openFlag();
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName componentName) {
+
+                    }
+                };
+                bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+            }
+
+            public void Flag28BindServiceWithAIDL_Classloader() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag28Service");
+                ServiceConnection serviceConnection = new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                        try {
+                            // Load the class dynamically
+                            ClassLoader classLoader = MainHextreeActivity.this.createPackageContext("io.hextree.attacksurface", Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY).getClassLoader();
+                            Class<?> iRemoteServiceClass = classLoader.loadClass("io.hextree.attacksurface.services.IFlag28Interface");
+                            Class<?> stubClass = null;
+                            for (Class<?> innerClass : iRemoteServiceClass.getDeclaredClasses()) {
+                                if (innerClass.getSimpleName().equals("Stub")) {
+                                    stubClass = innerClass;
+                                    break;
+                                }
+                            }
+                            // Get the asInterface method
+                            Method asInterfaceMethod = stubClass.getDeclaredMethod("asInterface", IBinder.class);
+                            // Invoke the asInterface method to get the instance of IRemoteService
+                            Object iRemoteService = asInterfaceMethod.invoke(null, iBinder);
+                            // Call the init method and get the returned string
+                            Method openFlagMethod = iRemoteServiceClass.getDeclaredMethod("openFlag");
+                            boolean initResult = (boolean) openFlagMethod.invoke(iRemoteService);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        } catch (NoSuchMethodException e) {
+                            throw new RuntimeException(e);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    @Override
+                    public void onServiceDisconnected(ComponentName componentName) {
+
+                    }
+                };
+                bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+            }
+
+            public void Flag29BindServiceWithAIDLWithMultipleFunctions() {
+                Intent intent = new Intent();
+                intent.setClassName("io.hextree.attacksurface", "io.hextree.attacksurface.services.Flag29Service");
+                ServiceConnection serviceConnection = new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                        try {
+                            // Load the class dynamically
+                            ClassLoader classLoader = MainHextreeActivity.this.createPackageContext("io.hextree.attacksurface", Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY).getClassLoader();
+                            Class<?> iRemoteServiceClass = classLoader.loadClass("io.hextree.attacksurface.services.IFlag29Interface");
+                            Class<?> stubClass = null;
+                            for (Class<?> innerClass : iRemoteServiceClass.getDeclaredClasses()) {
+                                if (innerClass.getSimpleName().equals("Stub")) {
+                                    stubClass = innerClass;
+                                    break;
+                                }
+                            }
+                            // Get the asInterface method
+                            Method asInterfaceMethod = stubClass.getDeclaredMethod("asInterface", IBinder.class);
+                            // Invoke the asInterface method to get the instance of IRemoteService
+                            Object iRemoteService = asInterfaceMethod.invoke(null, iBinder);
+                            // Call the methods
+                            Method initMethod = iRemoteServiceClass.getDeclaredMethod("init");
+                            String initResult = (String) initMethod.invoke(iRemoteService);
+                            Method authenticateMethod = iRemoteServiceClass.getDeclaredMethod("authenticate", String.class);
+                            Void authenticateResult = (Void) authenticateMethod.invoke(iRemoteService, initResult);
+                            Method successMethod = iRemoteServiceClass.getDeclaredMethod("success");
+                            Void successResult = (Void) successMethod.invoke(iRemoteService);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        } catch (NoSuchMethodException e) {
+                            throw new RuntimeException(e);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    @Override
+                    public void onServiceDisconnected(ComponentName componentName) {
+
+                    }
+                };
+                bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
             }
 
             public void Flag30query() {
@@ -443,7 +560,7 @@ public class MainHextreeActivity extends AppCompatActivity {
             //trigger flag functions on clicking
             @Override
             public void onClick(View view) {
-                Flag12trickyReturnedIntentCondition();
+                Flag29BindServiceWithAIDLWithMultipleFunctions();
             }
 
         });
