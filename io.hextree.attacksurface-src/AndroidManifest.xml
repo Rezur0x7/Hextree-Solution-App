@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest android:versionCode="1" android:versionName="1.0" android:compileSdkVersion="34" android:compileSdkVersionCodename="14" package="io.hextree.attacksurface" platformBuildVersionCode="34" platformBuildVersionName="14"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="34" />
+    <queries>
+        <intent>
+            <action android:name="io.hextree.attacksurface.ATTACK_ME" />
+        </intent>
+    </queries>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <permission android:name="io.hextree.attacksurface.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature" />
+    <uses-permission android:name="io.hextree.attacksurface.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <application android:theme="@style/Theme.IntentAttackSurface" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:allowBackup="true" android:supportsRtl="true" android:extractNativeLibs="false" android:fullBackupContent="@xml/backup_rules" android:roundIcon="@mipmap/ic_launcher_round" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:dataExtractionRules="@xml/data_extraction_rules">
+        <provider android:name="io.hextree.attacksurface.providers.Flag30Provider" android:enabled="true" android:exported="true" android:authorities="io.hextree.flag30" />
+        <provider android:name="io.hextree.attacksurface.providers.Flag31Provider" android:enabled="true" android:exported="true" android:authorities="io.hextree.flag31" />
+        <provider android:name="io.hextree.attacksurface.providers.Flag32Provider" android:enabled="true" android:exported="true" android:authorities="io.hextree.flag32" />
+        <provider android:name="io.hextree.attacksurface.providers.Flag33Provider1" android:enabled="true" android:exported="false" android:authorities="io.hextree.flag33_1" android:grantUriPermissions="true" />
+        <provider android:name="io.hextree.attacksurface.providers.Flag33Provider2" android:enabled="true" android:exported="false" android:authorities="io.hextree.flag33_2" android:grantUriPermissions="true" />
+        <provider android:name="androidx.core.content.FileProvider" android:exported="false" android:authorities="io.hextree.files" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths" />
+        </provider>
+        <provider android:name="io.hextree.attacksurface.providers.Flag35FileProvider" android:exported="false" android:authorities="io.hextree.root" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/rootpaths" />
+        </provider>
+        <service android:name="io.hextree.attacksurface.services.Flag24Service" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.services.START_FLAG24_SERVICE" />
+            </intent-filter>
+        </service>
+        <service android:name="io.hextree.attacksurface.services.Flag25Service" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.services.UNLOCK1" />
+                <action android:name="io.hextree.services.UNLOCK2" />
+                <action android:name="io.hextree.services.UNLOCK3" />
+            </intent-filter>
+        </service>
+        <service android:name="io.hextree.attacksurface.services.Flag26Service" android:enabled="true" android:exported="true" />
+        <service android:name="io.hextree.attacksurface.services.Flag27Service" android:enabled="true" android:exported="true" />
+        <service android:name="io.hextree.attacksurface.services.Flag28Service" android:enabled="true" android:exported="true" />
+        <service android:name="io.hextree.attacksurface.services.Flag29Service" android:enabled="true" android:exported="true" />
+        <receiver android:name="io.hextree.attacksurface.receivers.Flag17Receiver" android:enabled="true" android:exported="true" />
+        <receiver android:name="io.hextree.attacksurface.receivers.Flag16Receiver" android:enabled="true" android:exported="true" />
+        <receiver android:name="io.hextree.attacksurface.receivers.Flag19Widget" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/flag_home_widget_info" />
+        </receiver>
+        <activity android:name="io.hextree.attacksurface.activities.Flag1Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag2Activity" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.action.GIVE_FLAG" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag3Activity" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.action.GIVE_FLAG" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag4Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag5Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag6Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag7Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag8Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag9Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag10Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag11Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag12Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag13Activity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="hex" />
+                <data android:host="open" />
+                <data android:host="flag" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag14Activity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="hex" android:host="token" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag15Activity" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.action.GIVE_FLAG" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag16Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag17Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag18Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag19Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag20Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag21Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag22Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag23Activity" android:exported="false">
+            <intent-filter>
+                <action android:name="io.hextree.attacksurface.MUTATE_ME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag24Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag25Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag26Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag27Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag28Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag29Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag30Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag31Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag32Activity" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag33Activity1" android:exported="true">
+            <intent-filter>
+                <action android:name="io.hextree.FLAG33" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.hextree.attacksurface.activities.Flag33Activity2" android:exported="false" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag34Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag35Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag36Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.activities.Flag37Activity" android:exported="true" />
+        <activity android:name="io.hextree.attacksurface.MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <provider android:name="androidx.startup.InitializationProvider" android:exported="false" android:authorities="io.hextree.attacksurface.androidx-startup">
+            <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup" />
+            <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup" />
+            <meta-data android:name="androidx.profileinstaller.ProfileInstallerInitializer" android:value="androidx.startup" />
+        </provider>
+        <receiver android:name="androidx.profileinstaller.ProfileInstallReceiver" android:permission="android.permission.DUMP" android:enabled="true" android:exported="true" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
